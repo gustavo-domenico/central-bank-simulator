@@ -1,16 +1,12 @@
 from flask import Blueprint, abort, jsonify, request
-from flask_httpauth import HTTPBasicAuth
 
 import xmltodict
 import random
 
-import auth
+from common import auth
+from common import state
 
 api = Blueprint('protocols', __name__)
-
-protocols_source = {
-	
-}
 
 @api.route('/staws/arquivos', methods=['POST'])
 @auth.auth.login_required
@@ -20,7 +16,7 @@ def request_protocol():
 
 	request_data = xmltodict.parse(request.data)
 	new_protocol = random.randrange(1000000) 
-	protocols_source[new_protocol] = request_data
+	state.protocols[new_protocol] = request_data
 
 	response = """
 	<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
