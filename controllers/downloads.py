@@ -1,4 +1,4 @@
-from flask import Blueprint, abort, jsonify, request
+from flask import Blueprint, abort, jsonify, request, make_response
 
 import xmltodict
 import random
@@ -16,4 +16,9 @@ def request_protocol(path_protocol):
 	if protocol not in state.protocols:
 		abort(404)
 
-	return base64.b64decode(state.files[protocol]), 200
+	protocol_info = state.protocols[protocol]
+
+	response = make_response(base64.b64decode(state.files[protocol]), 200)
+	response.headers["Content-Disposition"] = "attachment; filename=%s" % protocol_info["Parametros"]["NomeArquivo"]
+
+	return response
