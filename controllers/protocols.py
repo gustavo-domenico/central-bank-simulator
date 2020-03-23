@@ -38,8 +38,7 @@ def get_available():
 	for key in state.responses:
 		value = state.responses[key]
 
-		files += """
-	<Arquivo>
+		files += """<Arquivo>
 		<Protocolo>%s</Protocolo>
 		<TipoArquivo>%s</TipoArquivo>
 		<CodigoDocumento>1234</CodigoDocumento>
@@ -49,8 +48,7 @@ def get_available():
 			<Descricao>A receber</Descricao>
 		</SituacaoAtual>
 		<DataHoraDisponibilizacao>2012-07-21T10:00:00.000</DataHoraDisponibilizaca>
-	</Arquivo>
-		""" % (value["protocol"], value["type"])
+	</Arquivo>""" % (value["protocol"], value["type"])
 
 	return """ 
 			<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
