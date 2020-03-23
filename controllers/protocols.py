@@ -28,4 +28,4 @@ def request_protocol():
 	</Resultado>
 	"""
 
-	return response % { 'protocol': new_protocol, 'host': request.host }
+	return response % { 'protocol': new_protocol, 'host': request.host }, 201
