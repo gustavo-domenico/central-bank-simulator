@@ -11,7 +11,7 @@ api = Blueprint('downloads', __name__)
 
 @api.route('/staws/arquivos/<path_protocol>/conteudo', methods=['GET'])
 @auth.auth.login_required
-def request_protocol(path_protocol):
+def download(path_protocol):
 	protocol = int(path_protocol)
 	if protocol not in state.protocols:
 		abort(404)

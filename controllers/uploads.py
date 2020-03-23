@@ -12,7 +12,7 @@ api = Blueprint('uploads', __name__)
 
 @api.route('/staws/arquivos/<path_protocol>/conteudo', methods=['PUT'])
 @auth.auth.login_required
-def request_protocol(path_protocol):
+def upload(path_protocol):
 	protocol = int(path_protocol)
 	if protocol not in state.protocols:
 		abort(404)

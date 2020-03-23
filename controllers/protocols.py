@@ -29,3 +29,33 @@ def request_protocol():
 	"""
 
 	return response % { 'protocol': new_protocol, 'host': request.host }, 201
+
+@api.route('/staws/arquivos/disponiveis', methods=['GET'])
+@auth.auth.login_required
+def get_available():
+	files = ""
+
+	for key in state.responses:
+		value = state.responses[key]
+
+		files += """
+	<Arquivo>
+		<Protocolo>%s</Protocolo>
+		<TipoArquivo>%s</TipoArquivo>
+		<CodigoDocumento>1234</CodigoDocumento>
+		<Sistema>CAM</Sistema>
+		<SituacaoAtual>
+			<Codigo>3</Codigo>
+			<Descricao>A receber</Descricao>
+		</SituacaoAtual>
+		<DataHoraDisponibilizacao>2012-07-21T10:00:00.000</DataHoraDisponibilizaca>
+	</Arquivo>
+		""" % (value["protocol"], value["type"])
+
+	return """ 
+			<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+			<Resultado xmlns:atom="http://www.w3.org/2005/Atom">
+				<DataHoraProximaConsulta>2012-07-25T10:00:00.001</DataHoraProximaConsulta>
+				%s
+			</Resultado>
+			""" % files
